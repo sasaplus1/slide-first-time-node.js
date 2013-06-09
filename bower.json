@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "flowtime.js": "git://github.com/marcolago/flowtime.js.git"
+  }
+}
