@@ -1,5 +1,7 @@
 # flowtime-slide-template
 
+[![Dependency Status](https://gemnasium.com/sasaplus1/flowtime-slide-template.png)](https://gemnasium.com/sasaplus1/flowtime-slide-template)
+
 flowtime.js slide template
 
 ## start grunt tasks
