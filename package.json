@@ -3,8 +3,8 @@
   "readmeFilename": "README.md",
   "private": true,
   "scripts": {
-    "postinstall": "./node_modules/.bin/bower install",
-    "start": "./node_modules/.bin/grunt"
+    "postinstall": "bower install",
+    "start": "grunt"
   },
   "repository": {
     "type": "git"
