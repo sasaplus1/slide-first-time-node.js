@@ -4,5 +4,5 @@ index.js
 *.css
 .DS_Store
 .*.swp
-components/
+bower_components/
 node_modules/
