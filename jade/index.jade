@@ -2,17 +2,188 @@
 html(lang="ja")
   head
     meta(charset="utf-8")
-    title flowtime-slide-base
+    title はじめてのnode.js
     link(rel="stylesheet",href="./bower_components/flowtime.js/assets/css/reset.css")
     link(rel="stylesheet",href="./bower_components/flowtime.js/css/flowtime.css")
     link(rel="stylesheet",href="./bower_components/flowtime.js/css/themes/default.css")
     link(rel="stylesheet",href="./bower_components/flowtime.js/assets/css/prism.css")
     link(rel="stylesheet",href="./index.css")
+    link(rel='stylesheet',href='//fonts.googleapis.com/css?family=Inconsolata')
   body
     .flowtime
       .ft-section
         .ft-page
-          h1 Hello, World!
+          h1.title はじめてのnode.js
+          p.title NDS32 / 2013-07-06
+      .ft-section
+        .ft-page
+          h1 自己紹介
+          ul
+            li
+              a(href="//twitter.com/sasaplus1") @sasaplus1
+            li プログラマ
+      .ft-section
+        .ft-page
+          h1 このスライドの内容
+          ul
+            li nodebrewを使ってnode.jsとnpmをインストール
+            li node.jsを使ってスクリプトを実行する
+            li npmを使ってモジュールをインストール
+      .ft-section
+        .ft-page
+          h1.title nodebrewのインストール
+        .ft-page
+          h1 nodebrewについて
+          ul
+            li
+              a(href="//github.com/hokaccha/nodebrew") github.com/hokaccha/nodebrew
+            li Node.js version manager
+            li perlbrew/plenv + perl-build, rvm/rbenv + ruby-buildみたいなもの
+            li OS X, Linux向け
+            li Perl製
+            li 類似ツールにnvm, nave, nなどがある
+            li 参考：
+              a(href="//d.hatena.ne.jp/Jxck/20120224/1330035058")
+                | node.js の環境管理ツール nodebrew - Block Rockin' Codes
+        .ft-page
+          h1 nodebrewを使わないインストール方法
+          ul
+            li
+              a(href="//nodejs.org/download/") nodejs.org/download
+              の
+              ul
+                li インストーラを使ってインストール
+                li バイナリのアーカイブをダウンロードして展開する
+                li ソースコードからコンパイル
+        .ft-page
+          h1 nodebrewをインストール / 1
+          p OS X
+          pre
+            $ curl -L git.io/nodebrew | perl - setup
+          p Ubuntu, etc.
+          pre
+            $ wget -qO - git.io/nodebrew | perl - setup
+        .ft-page
+          h1 nodebrewをインストール / 2
+          p OS X
+          pre
+            | $ echo 'export PATH=$HOME/.nodebrew/current/bin:$PATH' >> \
+            | ~/.bash_profile
+            | $ source ~/.bash_profile
+          p Ubuntu, etc.
+          pre
+            | $ echo 'export PATH=$HOME/.nodebrew/current/bin:$PATH' >> \
+            | ~/.bashrc
+            | $ source ~/.bashrc
+        .ft-page
+          h1 node.jsとnpmをインストール / 1
+          p バージョンの確認
+          pre
+            $ nodebrew ls-remote
+          p 0.10系（安定版）の最新バージョンをインストール
+          pre
+            $ nodebrew install-binary 0.10
+        .ft-page
+          h1 node.jsとnpmをインストール / 2
+          p インストールされたnode.jsを使うように指定
+          pre
+            $ nodebrew use 0.10
+          p node.jsとnpmが使えるか確認
+          pre
+            | $ node --version
+            | v0.10.12
+            | $ npm --version
+            | 1.2.32
+      .ft-section
+        .ft-page
+          h1.title node.jsを使ってスクリプトを実行する
+        .ft-page
+          h1 ワンライナー
+          p Hello, World!
+          pre
+            | $ node -e 'console.log("Hello, World!")'
+            | Hello, World!
+        .ft-page
+          h1 REPL / 1
+          p 対話的に実行する
+          pre
+            $ node
+          p ヘルプの表示
+          pre
+            | > .help
+            | .break  Sometimes you get stuck, this gets you out
+            | .clear  Alias for .break
+            | .exit   Exit the repl
+            | .help   Show repl options
+            | .load   Load JS from a file into the REPL session
+            | .save   Save all evaluated commands in this REPL session to a file
+        .ft-page
+          h1 REPL / 2
+          p なにか実行してみる
+          pre
+            | > NaN === NaN
+            | false
+            | > isNaN(NaN)
+            | true
+          p 終了
+          pre
+            | > .exit
+            | $
+        .ft-page
+          h1 スクリプト
+          p 何かスクリプトを書いて実行する
+          pre
+            | // index.js
+            | // "Hello,"と実行時引数を標準出力に出力
+            | console.log("Hello,", process.argv[2]);
+          p nodeのあとにスクリプトを渡して実行する
+          pre
+            | $ node index.js node.js!
+            | Hello, node.js!
+      .ft-section
+        .ft-page
+          h1.title npmを使ってモジュールをインストール
+        .ft-page
+          h1 request
+          p HTTPリクエストが簡単に書けるモジュール
+          pre
+            | $ npm install request
+          pre
+            | var request = require('request');
+            | request('http://www.google.com', function (error, response, body) {
+            |   if (!error && response.statusCode == 200) {
+            |     console.log(body);
+            |   }
+            | });
+          pre
+            | $ node index.js
+        .ft-page
+          h1 Bower
+          p Twitter謹製フロントエンドパッケージマネージャ
+          pre
+            | $ npm install -g bower
+            | $ bower install jquery underscore
+          p これでjQueryとunderscore.jsがbower_components/にダウンロードされる
+        .ft-page
+          h1 そのほか、便利なモジュール
+          dl
+            dt Grunt
+            dd
+              | タスクランナー、Rakeみたいなもの<br>
+              | grunt-contrib-watchと各種grunt-contribを組み合わせると自動コンパイルできる
+            dt Express
+            dd SinatraにインスパイヤされたWebフレームワーク
+            dt Socket.IO
+            dd WebSocketサーバを作る際に便利なモジュール
+            dt node-dev
+            dd
+              | ファイルを保存したらファイル読み込み直して再実行する<br>
+              | RubyのShotgunとかSinatra/Reloaderみたいなもの
+            dt node-inspector
+            dd GoogleChromeのデベロッパーツールでnode.jsをデバッグできるようにするモジュール
+      .ft-section
+        .ft-page
+          h1.title おしまい
     script(src="./bower_components/flowtime.js/js/brav1toolbox.js")
     script(src="./bower_components/flowtime.js/js/flowtime.min.js")
     script(src="./bower_components/flowtime.js/assets/js/prism.js")
