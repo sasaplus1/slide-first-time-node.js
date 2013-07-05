@@ -1,0 +1,30 @@
+<!DOCTYPE html><html lang="ja"><head><meta charset="utf-8"><title>はじめてのnode.js</title><link rel="stylesheet" href="./bower_components/flowtime.js/assets/css/reset.css"><link rel="stylesheet" href="./bower_components/flowtime.js/css/flowtime.css"><link rel="stylesheet" href="./bower_components/flowtime.js/css/themes/default.css"><link rel="stylesheet" href="./bower_components/flowtime.js/assets/css/prism.css"><link rel="stylesheet" href="./index.css"><link rel="stylesheet" href="//fonts.googleapis.com/css?family=Inconsolata"></head><body><div class="flowtime"><div class="ft-section"><div class="ft-page"><h1 class="title">はじめてのnode.js</h1><p class="title">NDS32 / 2013-07-06</p></div></div><div class="ft-section"><div class="ft-page"><h1>自己紹介</h1><ul><li><a href="//twitter.com/sasaplus1">@sasaplus1</a></li><li>プログラマ</li></ul></div></div><div class="ft-section"><div class="ft-page"><h1>このスライドの内容</h1><ul><li>nodebrewを使ってnode.jsとnpmをインストール</li><li>node.jsを使ってスクリプトを実行する</li><li>npmを使ってモジュールをインストール</li></ul></div></div><div class="ft-section"><div class="ft-page"><h1 class="title">nodebrewのインストール</h1></div><div class="ft-page"><h1>nodebrewについて</h1><ul><li><a href="//github.com/hokaccha/nodebrew">github.com/hokaccha/nodebrew</a></li><li>Node.js version manager</li><li>perlbrew/plenv + perl-build, rvm/rbenv + ruby-buildみたいなもの</li><li>OS X, Linux向け</li><li>Perl製</li><li>類似ツールにnvm, nave, nなどがある</li><li>参考：<a href="//d.hatena.ne.jp/Jxck/20120224/1330035058">node.js の環境管理ツール nodebrew - Block Rockin' Codes</a></li></ul></div><div class="ft-page"><h1>nodebrewを使わないインストール方法</h1><ul><li><a href="//nodejs.org/download/">nodejs.org/download</a>の<ul><li>インストーラを使ってインストール</li><li>バイナリのアーカイブをダウンロードして展開する</li><li>ソースコードからコンパイル</li></ul></li></ul></div><div class="ft-page"><h1>nodebrewをインストール / 1</h1><p>OS X</p><pre>$ curl -L git.io/nodebrew | perl - setup</pre><p>Ubuntu, etc.</p><pre>$ wget -qO - git.io/nodebrew | perl - setup</pre></div><div class="ft-page"><h1>nodebrewをインストール / 2</h1><p>OS X</p><pre>$ echo 'export PATH=$HOME/.nodebrew/current/bin:$PATH' >> \
+~/.bash_profile
+$ source ~/.bash_profile</pre><p>Ubuntu, etc.</p><pre>$ echo 'export PATH=$HOME/.nodebrew/current/bin:$PATH' >> \
+~/.bashrc
+$ source ~/.bashrc</pre></div><div class="ft-page"><h1>node.jsとnpmをインストール / 1</h1><p>バージョンの確認</p><pre>$ nodebrew ls-remote</pre><p>0.10系（安定版）の最新バージョンをインストール</p><pre>$ nodebrew install-binary 0.10</pre></div><div class="ft-page"><h1>node.jsとnpmをインストール / 2</h1><p>インストールされたnode.jsを使うように指定</p><pre>$ nodebrew use 0.10</pre><p>node.jsとnpmが使えるか確認</p><pre>$ node --version
+v0.10.12
+$ npm --version
+1.2.32</pre></div></div><div class="ft-section"><div class="ft-page"><h1 class="title">node.jsを使ってスクリプトを実行する</h1></div><div class="ft-page"><h1>ワンライナー</h1><p>Hello, World!</p><pre>$ node -e 'console.log("Hello, World!")'
+Hello, World!</pre></div><div class="ft-page"><h1>REPL / 1</h1><p>対話的に実行する</p><pre>$ node</pre><p>ヘルプの表示</p><pre>> .help
+.break  Sometimes you get stuck, this gets you out
+.clear  Alias for .break
+.exit   Exit the repl
+.help   Show repl options
+.load   Load JS from a file into the REPL session
+.save   Save all evaluated commands in this REPL session to a file</pre></div><div class="ft-page"><h1>REPL / 2</h1><p>なにか実行してみる</p><pre>> NaN === NaN
+false
+> isNaN(NaN)
+true</pre><p>終了</p><pre>> .exit
+$</pre></div><div class="ft-page"><h1>スクリプト</h1><p>何かスクリプトを書いて実行する</p><pre>// index.js
+// "Hello,"と実行時引数を標準出力に出力
+console.log("Hello,", process.argv[2]);</pre><p>nodeのあとにスクリプトを渡して実行する</p><pre>$ node index.js node.js!
+Hello, node.js!</pre></div></div><div class="ft-section"><div class="ft-page"><h1 class="title">npmを使ってモジュールをインストール</h1></div><div class="ft-page"><h1>request</h1><p>HTTPリクエストが簡単に書けるモジュール</p><pre>$ npm install request</pre><pre>var request = require('request');
+request('http://www.google.com', function (error, response, body) {
+  if (!error && response.statusCode == 200) {
+    console.log(body);
+  }
+});</pre><pre>$ node index.js</pre></div><div class="ft-page"><h1>Bower</h1><p>Twitter謹製フロントエンドパッケージマネージャ</p><pre>$ npm install -g bower
+$ bower install jquery underscore</pre><p>これでjQueryとunderscore.jsがbower_components/にダウンロードされる</p></div><div class="ft-page"><h1>そのほか、便利なモジュール</h1><dl><dt>Grunt</dt><dd>タスクランナー、Rakeみたいなもの<br>
+grunt-contrib-watchと各種grunt-contribを組み合わせると自動コンパイルできる</dd><dt>Express</dt><dd>SinatraにインスパイヤされたWebフレームワーク</dd><dt>Socket.IO</dt><dd>WebSocketサーバを作る際に便利なモジュール</dd><dt>node-dev</dt><dd>ファイルを保存したらファイル読み込み直して再実行する<br>
+RubyのShotgunとかSinatra/Reloaderみたいなもの</dd><dt>node-inspector</dt><dd>GoogleChromeのデベロッパーツールでnode.jsをデバッグできるようにするモジュール</dd></dl></div></div><div class="ft-section"><div class="ft-page"><h1 class="title">おしまい</h1></div></div></div><script src="./bower_components/flowtime.js/js/brav1toolbox.js"></script><script src="./bower_components/flowtime.js/js/flowtime.min.js"></script><script src="./bower_components/flowtime.js/assets/js/prism.js"></script><script src="./index.js"></script></body></html>
